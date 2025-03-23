@@ -1,8 +1,10 @@
-# Welcome to your Lovable project
+# Cronoz - Be rich in the attention economy
+
+
 
 ## Project info
-
-**URL**: https://lovable.dev/projects/fa545c11-4be3-4bd6-a943-e31774810f64
+**URL**: https://preview--cronometra-tiempos.lovable.app/
+**Lovable URL**: https://lovable.dev/projects/fa545c11-4be3-4bd6-a943-e31774810f64
 
 ## How can I edit this code?
 
