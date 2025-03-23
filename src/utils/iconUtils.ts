@@ -1,10 +1,10 @@
 
 import { 
   Book, Code, Coffee, Music, Dumbbell, Briefcase, Pencil, 
-  TreeDeciduous, Bike, Ball, Trophy, Guitar, Computer, Server, Terminal,
+  TreeDeciduous, Bike, Football, Trophy, Guitar, Computer, Server, Terminal,
   HeartPulse, Pizza, Plane, Car, Film, Globe, ShoppingBag, Sun, Gamepad2,
-  PenTool, Smartphone, Camera, Star, Clock as ClockIcon, Palette, Building, Leaf, Stretching,
-  Flower, Mountain, Cloud, Network, Database, Monitor, BadmintonIcon, LucideIcon
+  PenTool, Smartphone, Camera, Star, Clock as ClockIcon, Palette, Building, Leaf, Activity,
+  Flower, Mountain, Cloud, Network, Database, Monitor, Volleyball, LucideIcon
 } from "lucide-react";
 
 // Map of icon names to Lucide icon components
@@ -18,7 +18,7 @@ export const Icons: Record<string, LucideIcon> = {
   "Estudio": Pencil,
   "Árbol": TreeDeciduous,
   "Bicicleta": Bike,
-  "Fútbol": Ball,
+  "Fútbol": Football,
   "Trofeo": Trophy,
   "Guitarra": Guitar,
   "Ordenador": Computer,
@@ -41,13 +41,12 @@ export const Icons: Record<string, LucideIcon> = {
   "Arte": Palette,
   "Edificio": Building,
   "Hoja": Leaf,
-  "Baloncesto": Stretching,
+  "Baloncesto": Activity,
   "Flor": Flower,
   "Montaña": Mountain,
   "Nube": Cloud,
   "Red": Network,
   "Base de datos": Database,
   "Monitor": Monitor,
-  "Voleibol": BadmintonIcon
+  "Voleibol": Volleyball
 };
-
