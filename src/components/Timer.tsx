@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Play, Pause, MoreVertical } from "lucide-react";
+import { Play, Pause, MoreVertical, Check, X, Pencil } from "lucide-react";
 import { ActivityWithRecords } from "../types";
-import { formatTime, startTimeRecord, stopTimeRecord, findActiveTimeRecord } from "../utils/timerUtils";
+import { formatTime, startTimeRecord, stopTimeRecord, findActiveTimeRecord, updateActivityName } from "../utils/timerUtils";
 import { Icons } from "../utils/iconUtils";
 import { trackEvent, ANALYTICS_EVENTS } from "../utils/analyticsUtils";
+import { toast } from "sonner";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "./ui/dropdown-menu";
+import { Input } from "./ui/input";
 
 interface TimerProps {
   activity: ActivityWithRecords;
@@ -14,6 +22,8 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [activeRecordId, setActiveRecordId] = useState<string | null>(null);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [newName, setNewName] = useState(activity.name);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const startTimeRef = useRef<number>(0);
   
@@ -40,6 +50,10 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
       stopTimer();
     }
   }, [activity.id]);
+
+  useEffect(() => {
+    setNewName(activity.name);
+  }, [activity.name]);
   
   // Handle visibility change to keep timer accurate when tab becomes active again
   useEffect(() => {
@@ -117,6 +131,27 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
       onRecordChange();
     }
   };
+
+  const handleRenameActivity = () => {
+    if (newName.trim() === "") {
+      toast.error("El nombre no puede estar vacío");
+      return;
+    }
+    
+    if (newName === activity.name) {
+      setIsEditingName(false);
+      return;
+    }
+    
+    updateActivityName(activity.id, newName);
+    trackEvent(ANALYTICS_EVENTS.RENAME_ACTIVITY, { 
+      oldName: activity.name,
+      newName: newName
+    });
+    toast.success("Nombre actualizado");
+    onRecordChange();
+    setIsEditingName(false);
+  };
   
   // Format the total time for display
   const displayTotalTime = activity.totalTime ? formatTime(activity.totalTime) : "0:00";
@@ -137,11 +172,36 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
       </div>
       
       <div className="flex-1">
-        <h3 className="font-medium">{activity.name}</h3>
+        {isEditingName ? (
+          <div className="flex items-center">
+            <Input 
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              autoFocus
+              className="h-8"
+            />
+            <div className="flex ml-2 gap-1">
+              <button 
+                onClick={() => setIsEditingName(false)}
+                className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-cronoz-black-light transition-colors"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <button 
+                onClick={handleRenameActivity}
+                className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-cronoz-black-light transition-colors"
+              >
+                <Check className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <h3 className="font-medium">{activity.name}</h3>
+        )}
         <div className="flex items-center text-sm text-muted-foreground">
           {isRunning ? (
-            <span className="animate-pulse-light text-cronoz-green">
-              Grabando...
+            <span className="text-cronoz-green">
+              ●
             </span>
           ) : (
             <span>
@@ -173,9 +233,19 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
           )}
         </button>
         
-        <button className="ml-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-cronoz-black-light transition-colors">
-          <MoreVertical className="w-5 h-5" />
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="ml-2 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-cronoz-black-light transition-colors">
+              <MoreVertical className="w-5 h-5" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="bg-white dark:bg-cronoz-black-light border border-border">
+            <DropdownMenuItem onClick={() => setIsEditingName(true)}>
+              <Pencil className="w-4 h-4 mr-2" />
+              Cambiar nombre
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );

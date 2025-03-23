@@ -60,12 +60,6 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
               <CalendarDays className="w-5 h-5" />
             </Link>
           </div>
-          
-          <div className="mt-auto mb-4 text-xs text-center opacity-50 px-2 hidden md:block text-muted-foreground">
-            <p className="text-[8px] leading-tight">
-              RECUPERA TU TIEMPO. Tu atención es saqueada a cada segundo, Cronoz te devuelve el timón 🧭. Haz más deporte. Lee más. Aprende a hacer cosas nuevas. Dedica tiempo a la gente que quieres. Cada minuto consciente es una victoria contra el ruido 📢, una declaración de independencia 🚩. Cronoz mide lo que importa para que tomes el control de tu tiempo ⏳.
-            </p>
-          </div>
         </div>
       </div>
       
