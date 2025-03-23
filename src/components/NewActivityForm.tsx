@@ -3,10 +3,10 @@ import { Activity } from "../types";
 import { createActivity } from "../utils/timerUtils";
 import { 
   Book, Code, Coffee, Music, Dumbbell, Briefcase, Pencil, 
-  TreeDeciduous, Bike, Football, Trophy, Guitar, Computer, Server, Terminal,
+  TreeDeciduous, Bike, Trophy, Guitar, Computer, Server, Terminal,
   HeartPulse, Pizza, Plane, Car, Film, Globe, ShoppingBag, Sun, Gamepad2,
-  PenTool, Smartphone, Camera, Star, Clock, Palette, Building, Leaf, Activity,
-  Flower, Mountain, Cloud, Network, Database, Monitor, Volleyball, Plus
+  PenTool, Smartphone, Camera, Star, Clock, Palette, Building, Leaf,
+  Flower, Mountain, Cloud, Network, Database, Monitor, Plus
 } from "lucide-react";
 
 interface NewActivityFormProps {
@@ -53,9 +53,9 @@ const ICON_CATEGORIES = [
     name: "Deportes",
     icons: [
       { icon: <Bike className="w-5 h-5" />, name: "Bicicleta" },
-      { icon: <Football className="w-5 h-5" />, name: "Fútbol" },
-      { icon: <Activity className="w-5 h-5" />, name: "Baloncesto" },
-      { icon: <Volleyball className="w-5 h-5" />, name: "Voleibol" },
+      { icon: <Trophy className="w-5 h-5" />, name: "Fútbol" },
+      { icon: <Dumbbell className="w-5 h-5" />, name: "Baloncesto" },
+      { icon: <Trophy className="w-5 h-5" />, name: "Voleibol" },
       { icon: <Dumbbell className="w-5 h-5" />, name: "Pesas" },
       { icon: <Trophy className="w-5 h-5" />, name: "Trofeo" },
     ]

@@ -57,17 +57,20 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
   const handleStart = () => {
     const currentActiveRecord = findActiveTimeRecord();
     
-    if (currentActiveRecord) {
-      // Stop any other active record first
+    if (currentActiveRecord && currentActiveRecord.activityId !== activity.id) {
+      // Stop any other active record first that isn't this activity
       stopTimeRecord(currentActiveRecord.id);
       toast.info("Se detuvo otra actividad en proceso");
     }
     
-    const record = startTimeRecord(activity.id);
-    setActiveRecord(record);
-    setIsRunning(true);
-    onRecordChange();
-    toast.success(`Iniciando ${activity.name}`);
+    // Only start a new record if we don't already have one running for this activity
+    if (!isRunning) {
+      const record = startTimeRecord(activity.id);
+      setActiveRecord(record);
+      setIsRunning(true);
+      onRecordChange();
+      toast.success(`Iniciando ${activity.name}`);
+    }
   };
   
   const handleStop = () => {
