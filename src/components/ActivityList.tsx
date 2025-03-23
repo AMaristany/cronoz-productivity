@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Plus, Clock, X, Sparkles } from "lucide-react";
 import { Activity, ActivityWithRecords } from "../types";
 import { getActivitiesWithRecords, formatTimeLong } from "../utils/timerUtils";
+import { trackEvent, ANALYTICS_EVENTS } from "../utils/analyticsUtils";
 import Timer from "./Timer";
 import NewActivityForm from "./NewActivityForm";
 
@@ -25,6 +26,7 @@ const ActivityList: React.FC = () => {
     toast.success(`Actividad "${activity.name}" creada ¡A por todas! 🚀`, {
       icon: <Sparkles className="w-5 h-5 text-cronoz-green" />
     });
+    trackEvent(ANALYTICS_EVENTS.CREATE_ACTIVITY, { activityName: activity.name });
     loadActivities();
   };
   
@@ -65,10 +67,10 @@ const ActivityList: React.FC = () => {
           {!showNewForm && (
             <button 
               onClick={() => setShowNewForm(true)}
-              className="button-primary fixed bottom-6 right-6 inline-flex items-center rounded-full h-14 w-14 justify-center shadow-lg"
+              className="button-primary fixed bottom-6 right-6 inline-flex items-center justify-center rounded-full h-16 w-16 shadow-lg"
               aria-label="Nueva Actividad"
             >
-              <Plus className="w-6 h-6" />
+              <Plus className="w-8 h-8" />
             </button>
           )}
         </>

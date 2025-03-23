@@ -1,10 +1,13 @@
 
-import React from "react";
-import { ArrowLeft, Trash2 } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowLeft, Trash2, Pencil, Check, X } from "lucide-react";
 import { ActivityWithRecords } from "../../types";
-import { deleteTimeRecord, formatTime, formatDateLong } from "../../utils/timerUtils";
+import { deleteTimeRecord, formatTime, formatDateLong, updateActivityName } from "../../utils/timerUtils";
+import { trackEvent, ANALYTICS_EVENTS } from "../../utils/analyticsUtils";
 import { Icons } from "../../utils/iconUtils";
 import { toast } from "sonner";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 interface ActivityDetailProps {
   activity: ActivityWithRecords;
@@ -17,10 +20,34 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
   onBack,
   onRecordsChange
 }) => {
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [newName, setNewName] = useState(activity.name);
+
   const handleDeleteRecord = (recordId: string) => {
     deleteTimeRecord(recordId);
     toast.success("Registro eliminado");
     onRecordsChange();
+  };
+
+  const handleRenameActivity = () => {
+    if (newName.trim() === "") {
+      toast.error("El nombre no puede estar vacío");
+      return;
+    }
+    
+    if (newName === activity.name) {
+      setIsEditingName(false);
+      return;
+    }
+    
+    updateActivityName(activity.id, newName);
+    trackEvent(ANALYTICS_EVENTS.RENAME_ACTIVITY, { 
+      oldName: activity.name,
+      newName: newName
+    });
+    toast.success("Nombre actualizado");
+    onRecordsChange();
+    setIsEditingName(false);
   };
 
   // Find the correct icon component
@@ -48,8 +75,45 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
         >
           {getActivityIcon()}
         </div>
-        <div>
-          <h2 className="text-xl font-bold">{activity.name}</h2>
+        <div className="flex-1">
+          {isEditingName ? (
+            <div className="flex items-center">
+              <Input 
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                autoFocus
+                className="h-8"
+              />
+              <div className="flex ml-2 gap-1">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={() => setIsEditingName(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  onClick={handleRenameActivity}
+                >
+                  <Check className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center">
+              <h2 className="text-xl font-bold">{activity.name}</h2>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="ml-2 h-8 w-8" 
+                onClick={() => setIsEditingName(true)}
+              >
+                <Pencil className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
           <p className="text-sm text-muted-foreground">
             Tiempo total: {activity.totalTime ? formatTime(activity.totalTime) : "0:00"}
           </p>

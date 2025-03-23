@@ -16,7 +16,7 @@ export const formatTime = (seconds: number): string => {
   return `${pad(minutes)}:${pad(remainingSeconds)}`;
 };
 
-// Helper to format time in a human-readable format
+// Helper to format time in a human-readable format with fewer decimals
 export const formatTimeLong = (seconds: number): string => {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
@@ -28,7 +28,7 @@ export const formatTimeLong = (seconds: number): string => {
   } else if (minutes > 0) {
     return `${minutes}m`;
   } else {
-    return `${seconds}s`;
+    return `${Math.round(seconds)}s`;
   }
 };
 
@@ -83,6 +83,19 @@ export const saveTimeRecords = (records: TimeRecord[]): void => {
 export const loadTimeRecords = (): TimeRecord[] => {
   const recordsJson = localStorage.getItem("cronoz-time-records");
   return recordsJson ? JSON.parse(recordsJson) : [];
+};
+
+// Update an activity name
+export const updateActivityName = (activityId: string, newName: string): Activity | null => {
+  const activities = loadActivities();
+  const activityIndex = activities.findIndex(activity => activity.id === activityId);
+  
+  if (activityIndex === -1) return null;
+  
+  activities[activityIndex].name = newName;
+  saveActivities(activities);
+  
+  return activities[activityIndex];
 };
 
 // Get activities with their records

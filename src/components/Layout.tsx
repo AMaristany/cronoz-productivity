@@ -1,32 +1,80 @@
 
-import React, { ReactNode } from "react";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
+import { Clock, BarChart2, CalendarDays } from "lucide-react";
+import { initAnalytics, trackEvent, ANALYTICS_EVENTS } from "../utils/analyticsUtils";
 
 interface LayoutProps {
-  children: ReactNode;
-  title?: string;
+  title: string;
+  children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, title }) => {
+const Layout: React.FC<LayoutProps> = ({ title, children }) => {
+  const location = useLocation();
+  
+  useEffect(() => {
+    // Initialize analytics
+    initAnalytics();
+    
+    // Track page view based on current route
+    let eventName = ANALYTICS_EVENTS.VIEW_HOME;
+    
+    if (location.pathname === '/statistics') {
+      eventName = ANALYTICS_EVENTS.VIEW_STATISTICS;
+    } else if (location.pathname === '/activities') {
+      eventName = ANALYTICS_EVENTS.VIEW_ACTIVITIES;
+    }
+    
+    trackEvent(eventName);
+  }, [location.pathname]);
+  
   return (
-    <div className="min-h-screen bg-background dark:bg-gradient-to-b dark:from-cronoz-black dark:to-cronoz-black-light flex flex-col">
-      <header className="border-b border-border/40 backdrop-blur-sm bg-background/95 dark:bg-cronoz-black/95 fixed top-0 left-0 right-0 z-50">
-        <div className="container mx-auto px-4 py-3">
-          <Navbar />
-        </div>
-      </header>
-      
-      <main className="flex-1 container mx-auto px-4 pt-24 pb-24 animate-fade-in">
-        {title && (
-          <div className="mb-6">
-            <div className="inline-block rounded-full bg-cronoz-green/10 px-3 py-1 text-xs font-medium text-cronoz-green-dark mb-2 animate-slide-in">
-              Cronoz
-            </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-cronoz-green to-cronoz-green-dark bg-clip-text text-transparent">{title}</h1>
+    <div className="flex flex-col md:flex-row min-h-screen bg-gradient-to-br from-white to-accent dark:from-cronoz-black dark:to-cronoz-black">
+      <div className="flex-shrink-0 bg-background border-r border-border hidden md:block w-16">
+        <div className="sticky top-0 flex flex-col items-center p-3 h-screen">
+          <Link to="/" className="mb-8 mt-4">
+            <img src="/logo.svg" alt="Cronoz" className="w-8 h-8" />
+          </Link>
+          
+          <div className="flex flex-col items-center gap-3 mt-8">
+            <Link 
+              to="/" 
+              className={`p-3 rounded-full ${location.pathname === "/" ? "bg-accent text-accent-foreground" : "text-foreground/60 hover:text-foreground hover:bg-accent/50"} transition-colors`}
+              title="Temporizador"
+            >
+              <Clock className="w-5 h-5" />
+            </Link>
+            <Link 
+              to="/statistics" 
+              className={`p-3 rounded-full ${location.pathname === "/statistics" ? "bg-accent text-accent-foreground" : "text-foreground/60 hover:text-foreground hover:bg-accent/50"} transition-colors`}
+              title="Estadísticas"
+            >
+              <BarChart2 className="w-5 h-5" />
+            </Link>
+            <Link 
+              to="/activities" 
+              className={`p-3 rounded-full ${location.pathname === "/activities" ? "bg-accent text-accent-foreground" : "text-foreground/60 hover:text-foreground hover:bg-accent/50"} transition-colors`}
+              title="Actividades"
+            >
+              <CalendarDays className="w-5 h-5" />
+            </Link>
           </div>
-        )}
-        {children}
-      </main>
+          
+          <div className="mt-auto mb-4 text-xs text-center opacity-50 px-2 hidden md:block text-muted-foreground">
+            <p className="text-[8px] leading-tight">
+              RECUPERA TU TIEMPO. Tu atención es saqueada a cada segundo, Cronoz te devuelve el timón 🧭. Haz más deporte. Lee más. Aprende a hacer cosas nuevas. Dedica tiempo a la gente que quieres. Cada minuto consciente es una victoria contra el ruido 📢, una declaración de independencia 🚩. Cronoz mide lo que importa para que tomes el control de tu tiempo ⏳.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex-1 px-4 py-6 md:py-8 md:px-8 max-w-5xl mx-auto w-full">
+        <Navbar title={title} />
+        <main className="mt-8">
+          {children}
+        </main>
+      </div>
     </div>
   );
 };
