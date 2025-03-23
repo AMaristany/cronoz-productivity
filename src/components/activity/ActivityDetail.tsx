@@ -59,7 +59,7 @@ const ActivityDetail: React.FC<ActivityDetailProps> = ({
       {activity.records.length === 0 ? (
         <div className="glass-card p-8 text-center">
           <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-full bg-muted">
-            <Icons["Tiempo"] className="w-6 h-6 text-muted-foreground" />
+            <Icons.Tiempo className="w-6 h-6 text-muted-foreground" />
           </div>
           <h3 className="text-lg font-medium mb-2">No hay registros</h3>
           <p className="text-muted-foreground">
