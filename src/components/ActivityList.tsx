@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Plus, Clock, X } from "lucide-react";
+import { Plus, Clock, X, Sparkles } from "lucide-react";
 import { Activity, ActivityWithRecords } from "../types";
 import { getActivitiesWithRecords, formatTimeLong } from "../utils/timerUtils";
 import Timer from "./Timer";
@@ -22,7 +22,9 @@ const ActivityList: React.FC = () => {
   
   const handleAddActivity = (activity: Activity) => {
     setShowNewForm(false);
-    toast.success(`Actividad "${activity.name}" creada`);
+    toast.success(`Actividad "${activity.name}" creada ¡A por todas! 🚀`, {
+      icon: <Sparkles className="w-5 h-5 text-cronoz-green" />
+    });
     loadActivities();
   };
   
@@ -34,10 +36,12 @@ const ActivityList: React.FC = () => {
     <div className="space-y-4">
       {activities.length === 0 && !showNewForm ? (
         <div className="glass-card p-8 text-center">
-          <Clock className="w-12 h-12 mx-auto mb-4 text-cronoz-green" />
+          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-cronoz-green/10 flex items-center justify-center">
+            <Clock className="w-10 h-10 text-cronoz-green" />
+          </div>
           <h3 className="text-xl font-semibold mb-2">No hay actividades</h3>
-          <p className="text-muted-foreground mb-6">
-            Crea tu primera actividad para comenzar a trackear tiempo
+          <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
+            ¡Crea tu primera actividad para comenzar a trackear tiempo y dominar tu productividad! 💪
           </p>
           <button 
             onClick={() => setShowNewForm(true)}
@@ -62,6 +66,7 @@ const ActivityList: React.FC = () => {
             <button 
               onClick={() => setShowNewForm(true)}
               className="button-primary fixed bottom-6 right-6 inline-flex items-center rounded-full h-14 w-14 justify-center shadow-lg"
+              aria-label="Nueva Actividad"
             >
               <Plus className="w-6 h-6" />
             </button>
@@ -73,10 +78,13 @@ const ActivityList: React.FC = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-end justify-center z-50 animate-fade-in">
           <div className="bg-white dark:bg-cronoz-black w-full max-w-lg rounded-t-3xl p-6 animate-slide-up">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Nueva Actividad</h2>
+              <h2 className="text-xl font-bold bg-gradient-to-r from-cronoz-green to-cronoz-green-dark bg-clip-text text-transparent">
+                Nueva Actividad ✨
+              </h2>
               <button 
                 onClick={() => setShowNewForm(false)}
                 className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-cronoz-black-light transition-colors"
+                aria-label="Cerrar"
               >
                 <X className="w-5 h-5" />
               </button>

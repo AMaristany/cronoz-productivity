@@ -94,15 +94,15 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/70 dark:bg-black/50 backdrop-blur-md rounded-2xl border border-white/20 dark:border-white/10 shadow-lg;
+    @apply bg-white/70 dark:bg-black/50 backdrop-blur-md rounded-2xl border border-white/20 dark:border-white/10 shadow-lg transition-all hover:shadow-xl;
   }
   
   .button-primary {
-    @apply bg-cronoz-green text-white hover:bg-cronoz-green-dark transition-all duration-300 rounded-full font-medium px-6 py-3 shadow-md hover:shadow-lg active:scale-95;
+    @apply bg-gradient-to-br from-cronoz-green to-cronoz-green-dark text-white hover:shadow-lg hover:scale-[1.02] transition-all duration-300 rounded-full font-medium px-6 py-3 shadow-md active:scale-95;
   }
   
   .button-secondary {
-    @apply bg-white dark:bg-cronoz-black-light text-cronoz-black dark:text-white border border-cronoz-gray dark:border-cronoz-black transition-all duration-300 rounded-full font-medium px-6 py-3 shadow-sm hover:shadow active:scale-95;
+    @apply bg-white dark:bg-cronoz-black-light text-cronoz-black dark:text-white border border-cronoz-gray dark:border-cronoz-black hover:shadow hover:scale-[1.02] transition-all duration-300 rounded-full font-medium px-6 py-3 shadow-sm active:scale-95;
   }
   
   .input-field {
@@ -124,10 +124,34 @@
   .page-transition-exit-active {
     @apply opacity-0 transition-opacity duration-300;
   }
+
+  /* Custom scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(143, 214, 148, 0.5) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(143, 214, 148, 0.5);
+    border-radius: 10px;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-cronoz-green to-cronoz-green-dark bg-clip-text text-transparent;
   }
 }

@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Clock, BarChart2, Settings } from "lucide-react";
+import { Timer, LayoutList, LineChart } from "lucide-react";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
@@ -17,41 +17,41 @@ const Navbar: React.FC = () => {
         <span className="font-display font-bold text-xl text-cronoz-black dark:text-white">Cronoz</span>
       </Link>
       
-      <div className="flex items-center gap-1">
+      <div className="flex items-center space-x-1">
         <Link
           to="/"
-          className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 ${
+          className={`p-2 rounded-full transition-all duration-300 ${
             isActive("/") 
-              ? "text-cronoz-green bg-cronoz-green/10" 
+              ? "bg-cronoz-green text-white shadow-md" 
               : "text-cronoz-black dark:text-white hover:bg-cronoz-gray/10 dark:hover:bg-white/5"
           }`}
+          aria-label="Cronómetro"
         >
-          <Clock className="w-6 h-6" />
-          <span className="text-xs mt-1">Cronómetro</span>
+          <Timer className="w-6 h-6" />
         </Link>
         
         <Link
           to="/activities"
-          className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 ${
+          className={`p-2 rounded-full transition-all duration-300 ${
             isActive("/activities") 
-              ? "text-cronoz-green bg-cronoz-green/10" 
+              ? "bg-cronoz-green text-white shadow-md" 
               : "text-cronoz-black dark:text-white hover:bg-cronoz-gray/10 dark:hover:bg-white/5"
           }`}
+          aria-label="Actividades"
         >
-          <Settings className="w-6 h-6" />
-          <span className="text-xs mt-1">Actividades</span>
+          <LayoutList className="w-6 h-6" />
         </Link>
         
         <Link
           to="/statistics"
-          className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 ${
+          className={`p-2 rounded-full transition-all duration-300 ${
             isActive("/statistics") 
-              ? "text-cronoz-green bg-cronoz-green/10" 
+              ? "bg-cronoz-green text-white shadow-md" 
               : "text-cronoz-black dark:text-white hover:bg-cronoz-gray/10 dark:hover:bg-white/5"
           }`}
+          aria-label="Estadísticas"
         >
-          <BarChart2 className="w-6 h-6" />
-          <span className="text-xs mt-1">Estadísticas</span>
+          <LineChart className="w-6 h-6" />
         </Link>
       </div>
     </div>

@@ -1,0 +1,52 @@
+
+import { 
+  Book, Code, Coffee, Music, Dumbbell, Briefcase, Pencil, 
+  TreeDeciduous, Bike, Football, Trophy, Guitar, Computer, Server, Terminal,
+  HeartPulse, Pizza, Plane, Car, Film, Globe, ShoppingBag, Sun, Gamepad2,
+  PenTool, Smartphone, Camera, Star, Clock, Palette, Building, Leaf, Basketball,
+  Flower, Mountain, Cloud, Network, Database, Monitor, Volleyball, LucideIcon
+} from "lucide-react";
+
+// Map of icon names to Lucide icon components
+export const Icons: Record<string, LucideIcon> = {
+  "Lectura": Book,
+  "Código": Code,
+  "Descanso": Coffee,
+  "Música": Music,
+  "Pesas": Dumbbell,
+  "Trabajo": Briefcase,
+  "Estudio": Pencil,
+  "Árbol": TreeDeciduous,
+  "Bicicleta": Bike,
+  "Fútbol": Football,
+  "Trofeo": Trophy,
+  "Guitarra": Guitar,
+  "Ordenador": Computer,
+  "Servidor": Server,
+  "Terminal": Terminal,
+  "Salud": HeartPulse,
+  "Comida": Pizza,
+  "Viajes": Plane,
+  "Coche": Car,
+  "Películas": Film,
+  "Internet": Globe,
+  "Compras": ShoppingBag,
+  "Sol": Sun,
+  "Juegos": Gamepad2,
+  "Diseño": PenTool,
+  "Móvil": Smartphone,
+  "Fotografía": Camera,
+  "Favorito": Star,
+  "Tiempo": Clock,
+  "Arte": Palette,
+  "Edificio": Building,
+  "Hoja": Leaf,
+  "Baloncesto": Basketball,
+  "Flor": Flower,
+  "Montaña": Mountain,
+  "Nube": Cloud,
+  "Red": Network,
+  "Base de datos": Database,
+  "Monitor": Monitor,
+  "Voleibol": Volleyball
+};

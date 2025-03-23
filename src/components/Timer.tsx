@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Play, Pause, Clock } from "lucide-react";
 import { Activity, TimeRecord } from "../types";
 import { startTimeRecord, stopTimeRecord, findActiveTimeRecord, formatTime } from "../utils/timerUtils";
+import { Icons } from "../utils/iconUtils";
 
 interface TimerProps {
   activity: Activity;
@@ -32,11 +33,16 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
     let interval: number | null = null;
     
     if (isRunning && activeRecord) {
-      interval = window.setInterval(() => {
+      const updateElapsedTime = () => {
         const startTime = new Date(activeRecord.startTime).getTime();
         const now = new Date().getTime();
         setElapsed(Math.floor((now - startTime) / 1000));
-      }, 1000);
+      };
+      
+      // Initial update
+      updateElapsedTime();
+      
+      interval = window.setInterval(updateElapsedTime, 1000);
     } else {
       setElapsed(0);
     }
@@ -75,6 +81,9 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
       onRecordChange();
     }
   };
+
+  // Find the correct icon component
+  const IconComponent = activity.icon ? Icons[activity.icon] || Clock : Clock;
   
   return (
     <div className="glass-card p-4 mb-4">
@@ -87,11 +96,7 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
               color: "#fff" 
             }}
           >
-            {activity.icon ? (
-              <span>{activity.icon}</span>
-            ) : (
-              <Clock className="w-5 h-5" />
-            )}
+            <IconComponent className="w-5 h-5" />
           </div>
           <div>
             <h3 className="font-medium text-lg">{activity.name}</h3>
