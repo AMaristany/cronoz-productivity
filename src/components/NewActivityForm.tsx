@@ -1,13 +1,12 @@
-
 import React, { useState } from "react";
 import { Activity } from "../types";
 import { createActivity } from "../utils/timerUtils";
 import { 
   Book, Code, Coffee, Music, Dumbbell, Briefcase, Pencil, 
-  TreeDeciduous, Bike, Football, Trophy, Guitar, Computer, Server, Terminal,
+  TreeDeciduous, Bike, Ball, Trophy, Guitar, Computer, Server, Terminal,
   HeartPulse, Pizza, Plane, Car, Film, Globe, ShoppingBag, Sun, Gamepad2,
-  PenTool, Smartphone, Camera, Star, Clock, Palette, Building, Leaf, Basketball,
-  Flower, Mountain, Cloud, Network, Database, Monitor, Volleyball, Plus
+  PenTool, Smartphone, Camera, Star, Clock, Palette, Building, Leaf, Stretching,
+  Flower, Mountain, Cloud, Network, Database, Monitor, BadmintonIcon, Plus
 } from "lucide-react";
 
 interface NewActivityFormProps {
@@ -54,9 +53,9 @@ const ICON_CATEGORIES = [
     name: "Deportes",
     icons: [
       { icon: <Bike className="w-5 h-5" />, name: "Bicicleta" },
-      { icon: <Football className="w-5 h-5" />, name: "Fútbol" },
-      { icon: <Basketball className="w-5 h-5" />, name: "Baloncesto" },
-      { icon: <Volleyball className="w-5 h-5" />, name: "Voleibol" },
+      { icon: <Ball className="w-5 h-5" />, name: "Fútbol" },
+      { icon: <Stretching className="w-5 h-5" />, name: "Baloncesto" },
+      { icon: <BadmintonIcon className="w-5 h-5" />, name: "Voleibol" },
       { icon: <Dumbbell className="w-5 h-5" />, name: "Pesas" },
       { icon: <Trophy className="w-5 h-5" />, name: "Trofeo" },
     ]
@@ -101,7 +100,6 @@ const ICON_CATEGORIES = [
   }
 ];
 
-// Flatten all icons for initial selection
 const ALL_ICONS = ICON_CATEGORIES.flatMap(category => category.icons);
 
 const NewActivityForm: React.FC<NewActivityFormProps> = ({ onSubmit, onCancel }) => {
@@ -197,7 +195,6 @@ const NewActivityForm: React.FC<NewActivityFormProps> = ({ onSubmit, onCancel })
             
             <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto p-1 mb-2">
               {ICON_CATEGORIES.find(cat => cat.name === currentCategory)?.icons.map((icon, index) => {
-                // Calculate the actual index in ALL_ICONS
                 const actualIndex = ALL_ICONS.findIndex(i => i.name === icon.name);
                 
                 return (

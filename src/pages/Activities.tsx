@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Trash2, AlertCircle, ArrowLeft } from "lucide-react";
+import { Trash2, AlertCircle, ArrowLeft, Clock } from "lucide-react";
 import Layout from "../components/Layout";
 import { ActivityWithRecords } from "../types";
 import { 
