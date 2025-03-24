@@ -1,11 +1,8 @@
 
 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="100" height="100" rx="10" fill="#22D147"/>
-  <circle cx="50" cy="48" r="30" fill="white"/>
-  <path d="M50 28C38.9543 28 30 36.9543 30 48C30 59.0457 38.9543 68 50 68C61.0457 68 70 59.0457 70 48C70 36.9543 61.0457 28 50 28ZM50 64C41.1634 64 34 56.8366 34 48C34 39.1634 41.1634 32 50 32C58.8366 32 66 39.1634 66 48C66 56.8366 58.8366 64 50 64Z" fill="#333333"/>
-  <path d="M64 48H50V35" stroke="#333333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M50 48L58 56" stroke="#333333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Heart symbol at the bottom -->
-  <path d="M50 80C51.8856 77.9333 55.4223 74.4 58.5 74.4C62.1667 74.4 65 76.8 65 80.4C65 84 62.1667 87.2 58.5 87.2C54.8333 87.2 52 84 50 80Z" fill="#FF5E5E"/>
-  <path d="M50 80C48.1144 77.9333 44.5777 74.4 41.5 74.4C37.8333 74.4 35 76.8 35 80.4C35 84 37.8333 87.2 41.5 87.2C45.1667 87.2 48 84 50 80Z" fill="#FF5E5E"/>
+  <circle cx="50" cy="50" r="30" fill="white"/>
+  <path d="M50 30C38.9543 30 30 38.9543 30 50C30 61.0457 38.9543 70 50 70C61.0457 70 70 61.0457 70 50C70 38.9543 61.0457 30 50 30ZM50 66C41.1634 66 34 58.8366 34 50C34 41.1634 41.1634 34 50 34C58.8366 34 66 41.1634 66 50C66 58.8366 58.8366 66 50 66Z" fill="#333333"/>
+  <path d="M64 50H50V37" stroke="#333333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50 50L58 58" stroke="#333333" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

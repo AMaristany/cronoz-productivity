@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Statistics from "./pages/Statistics";
 import Activities from "./pages/Activities";
 import NotFound from "./pages/NotFound";
+import Settings from "./pages/Settings";
 import { useEffect } from "react";
 
 // Create a QueryClient instance
@@ -17,7 +18,7 @@ const App = () => {
   // Setup effect for mobile app initialization
   useEffect(() => {
     // Check if running in Capacitor environment (will be used when we convert to mobile)
-    const isCapacitorApp = window.Capacitor?.isNativePlatform() || false;
+    const isCapacitorApp = 'Capacitor' in window && (window as any).Capacitor?.isNativePlatform() || false;
     
     if (isCapacitorApp) {
       // Set additional configurations for mobile environment
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/activities" element={<Activities />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

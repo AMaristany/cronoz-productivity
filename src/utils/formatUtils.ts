@@ -29,7 +29,7 @@ export const formatTimeLong = (seconds: number): string => {
     return `${minutes}m`;
   } else {
     // Limit to 1 decimal place for seconds
-    return `${(Math.round(seconds * 10) / 10).toFixed(1)}s`;
+    return `${Math.floor(seconds * 10) / 10}s`;
   }
 };
 

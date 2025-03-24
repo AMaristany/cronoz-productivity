@@ -1,14 +1,14 @@
-
 import React, { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, Cell, ResponsiveContainer, PieChart, Pie, Cell as PieCell, Tooltip as RechartsTooltip, LineChart, Line, YAxis } from "recharts";
 import { Activity, TimeRecord } from "../types";
 import { getDailySummary, getWeeklySummary, loadActivities, loadTimeRecords, formatTimeLong } from "../utils/timerUtils";
 import { Icons } from "../utils/iconUtils";
-import { Flame, Clock, Calendar, Sparkles, TrendingUp } from "lucide-react";
+import { Flame, Clock, Calendar, Sparkles, TrendingUp, ArrowLeft } from "lucide-react";
+import ActivityStats from "./activity/ActivityStats";
 
 const Stats: React.FC = () => {
   const [activities, setActivities] = useState<Activity[]>([]);
-  const [dailyData, setDailyData] = useState<{ name: string; time: number; color: string }[]>([]);
+  const [dailyData, setDailyData] = useState<{ name: string; time: number; color: string; id: string }[]>([]);
   const [weeklyData, setWeeklyData] = useState<{ name: string; time: number }[]>([]);
   const [streakData, setStreakData] = useState<{ activity: string; streak: number; color: string }[]>([]);
   const [hourlyData, setHourlyData] = useState<{ hour: string; count: number }[]>([]);
@@ -16,6 +16,7 @@ const Stats: React.FC = () => {
   const [totalToday, setTotalToday] = useState<number>(0);
   const [totalWeek, setTotalWeek] = useState<number>(0);
   const [selectedView, setSelectedView] = useState<'today' | 'week'>('today');
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
   
   useEffect(() => {
     const loadedActivities = loadActivities();
@@ -31,7 +32,8 @@ const Stats: React.FC = () => {
       return {
         name: activity?.name || "Desconocido",
         time,
-        color: activity?.color || "#8FD694"
+        color: activity?.color || "#8FD694",
+        id: activityId
       };
     }).sort((a, b) => b.time - a.time);
     
@@ -157,6 +159,28 @@ const Stats: React.FC = () => {
     setAvgDurations(avgDurations.sort((a, b) => b.duration - a.duration).slice(0, 5));
   };
   
+  const handleActivityClick = (activityId: string) => {
+    const activity = activities.find(a => a.id === activityId);
+    if (activity) {
+      setSelectedActivity(activity);
+    }
+  };
+  
+  if (selectedActivity) {
+    return (
+      <div>
+        <button 
+          onClick={() => setSelectedActivity(null)}
+          className="flex items-center gap-1 text-sm text-muted-foreground mb-4 hover:text-foreground transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Volver a estadísticas generales
+        </button>
+        <ActivityStats activity={selectedActivity} />
+      </div>
+    );
+  }
+  
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 mb-2">
@@ -196,14 +220,18 @@ const Stats: React.FC = () => {
               {dailyData.length > 0 ? (
                 <div className="space-y-3">
                   {dailyData.map((item) => (
-                    <div key={item.name} className="flex items-center">
+                    <button 
+                      key={item.id} 
+                      className="flex items-center w-full text-left hover:bg-muted/30 p-1 rounded transition-colors"
+                      onClick={() => handleActivityClick(item.id)}
+                    >
                       <div 
                         className="w-3 h-3 rounded-full mr-2"
                         style={{ backgroundColor: item.color }}
                       />
                       <span className="text-sm flex-1">{item.name}</span>
                       <span className="text-sm font-medium">{formatTimeLong(item.time)}</span>
-                    </div>
+                    </button>
                   ))}
                 </div>
               ) : (
@@ -229,6 +257,8 @@ const Stats: React.FC = () => {
                       dataKey="time"
                       label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                       labelLine={false}
+                      onClick={(data) => handleActivityClick(data.id)}
+                      cursor="pointer"
                     >
                       {dailyData.map((entry, index) => (
                         <PieCell key={`cell-${index}`} fill={entry.color} />
@@ -365,3 +395,4 @@ const Stats: React.FC = () => {
 };
 
 export default Stats;
+
