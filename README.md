@@ -1,4 +1,4 @@
-# Cronoz - Be rich in the attention economy
+# Cronoz - Don't get distracted
 
 
 
