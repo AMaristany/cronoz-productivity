@@ -2,7 +2,7 @@
 // Utilities for working with activities
 import { Activity, ActivityWithRecords } from "../types";
 import { loadActivities, saveActivities } from "./storageUtils";
-import { loadTimeRecords } from "./storageUtils";
+import { loadTimeRecords, saveTimeRecords } from "./storageUtils";
 import { generateId } from "./idUtils";
 
 // Update an activity name
