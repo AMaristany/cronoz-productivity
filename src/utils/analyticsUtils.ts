@@ -16,6 +16,7 @@ export const initAnalytics = () => {
 export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
   try {
     mixpanel.track(eventName, properties);
+    console.log(`Tracked event: ${eventName}`, properties);
   } catch (error) {
     console.error(`Error tracking event ${eventName}:`, error);
   }
@@ -43,4 +44,6 @@ export const ANALYTICS_EVENTS = {
   VIEW_STATISTICS: 'view_statistics',
   VIEW_ACTIVITIES: 'view_activities',
   VIEW_HOME: 'view_home',
+  OPEN_MANIFESTO: 'open_manifesto',
+  CLOSE_MANIFESTO: 'close_manifesto'
 };

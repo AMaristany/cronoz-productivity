@@ -12,10 +12,13 @@ const Navbar: React.FC = () => {
   
   return (
     <div className="flex justify-between items-center">
-      <Link to="/" className="flex items-center gap-2">
-        <img src="/logo.svg" alt="Cronoz Logo" className="w-8 h-8" />
-        <span className="font-display font-bold text-xl text-cronoz-black dark:text-white">Cronoz</span>
-      </Link>
+      <div className="flex flex-col">
+        <Link to="/" className="flex items-center gap-2">
+          <img src="/logo.svg" alt="Cronoz Logo" className="w-8 h-8" />
+          <span className="font-display font-bold text-xl text-cronoz-black dark:text-white">Cronoz</span>
+        </Link>
+        <span className="text-xs text-muted-foreground ml-10 -mt-1">Don't get distracted.</span>
+      </div>
       
       <div className="flex items-center space-x-1">
         <Link

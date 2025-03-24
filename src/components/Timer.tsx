@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Play, Pause, MoreVertical, Check, X, Pencil } from "lucide-react";
 import { ActivityWithRecords } from "../types";
@@ -196,7 +197,12 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
             </div>
           </div>
         ) : (
-          <h3 className="font-medium">{activity.name}</h3>
+          <h3 
+            className="font-medium cursor-pointer hover:text-cronoz-green"
+            onClick={() => setIsEditingName(true)}
+          >
+            {activity.name}
+          </h3>
         )}
         <div className="flex items-center text-sm text-muted-foreground">
           {isRunning ? (
@@ -213,7 +219,7 @@ const Timer: React.FC<TimerProps> = ({ activity, onRecordChange }) => {
       
       <div className="flex items-center">
         {isRunning && (
-          <div className="font-mono font-medium text-lg mr-4">
+          <div className="font-sans font-medium text-lg mr-4">
             {formatTime(elapsedTime)}
           </div>
         )}

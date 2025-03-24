@@ -64,7 +64,7 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
       </div>
       
       <div className="flex-1 px-4 py-6 md:py-8 md:px-8 max-w-5xl mx-auto w-full">
-        <Navbar title={title} />
+        <Navbar />
         <main className="mt-8">
           {children}
         </main>

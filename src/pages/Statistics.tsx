@@ -4,9 +4,22 @@ import Layout from "../components/Layout";
 import Stats from "../components/Stats";
 import { Button } from "../components/ui/button";
 import { Info } from "lucide-react";
+import { trackEvent, ANALYTICS_EVENTS } from "../utils/analyticsUtils";
 
 const Statistics: React.FC = () => {
   const [showManifesto, setShowManifesto] = useState(false);
+  
+  const toggleManifesto = () => {
+    const newState = !showManifesto;
+    setShowManifesto(newState);
+    
+    // Track the event
+    if (newState) {
+      trackEvent(ANALYTICS_EVENTS.OPEN_MANIFESTO);
+    } else {
+      trackEvent(ANALYTICS_EVENTS.CLOSE_MANIFESTO);
+    }
+  };
   
   return (
     <Layout title="Estadísticas">
@@ -17,7 +30,7 @@ const Statistics: React.FC = () => {
           variant="ghost" 
           size="sm"
           className="text-muted-foreground/50 text-xs"
-          onClick={() => setShowManifesto(!showManifesto)}
+          onClick={toggleManifesto}
         >
           <Info className="w-3 h-3 mr-1" />
           Info
