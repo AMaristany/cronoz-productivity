@@ -16,7 +16,7 @@ export const formatTime = (seconds: number): string => {
   return `${pad(minutes)}:${pad(remainingSeconds)}`;
 };
 
-// Helper to format time in a human-readable format with fewer decimals
+// Helper to format time in a human-readable format with max 1 decimal place
 export const formatTimeLong = (seconds: number): string => {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
@@ -28,7 +28,8 @@ export const formatTimeLong = (seconds: number): string => {
   } else if (minutes > 0) {
     return `${minutes}m`;
   } else {
-    return `${Math.round(seconds)}s`;
+    // Limit to 1 decimal place for seconds
+    return `${(Math.round(seconds * 10) / 10).toFixed(1)}s`;
   }
 };
 

@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
-import { Clock, BarChart2, CalendarDays } from "lucide-react";
+import { Clock, CalendarDays, BarChart2 } from "lucide-react";
 import { initAnalytics, trackEvent, ANALYTICS_EVENTS } from "../utils/analyticsUtils";
 
 interface LayoutProps {
@@ -46,18 +46,18 @@ const Layout: React.FC<LayoutProps> = ({ title, children }) => {
               <Clock className="w-5 h-5" />
             </Link>
             <Link 
-              to="/statistics" 
-              className={`p-3 rounded-full ${location.pathname === "/statistics" ? "bg-accent text-accent-foreground" : "text-foreground/60 hover:text-foreground hover:bg-accent/50"} transition-colors`}
-              title="Estadísticas"
-            >
-              <BarChart2 className="w-5 h-5" />
-            </Link>
-            <Link 
               to="/activities" 
               className={`p-3 rounded-full ${location.pathname === "/activities" ? "bg-accent text-accent-foreground" : "text-foreground/60 hover:text-foreground hover:bg-accent/50"} transition-colors`}
               title="Actividades"
             >
               <CalendarDays className="w-5 h-5" />
+            </Link>
+            <Link 
+              to="/statistics" 
+              className={`p-3 rounded-full ${location.pathname === "/statistics" ? "bg-accent text-accent-foreground" : "text-foreground/60 hover:text-foreground hover:bg-accent/50"} transition-colors`}
+              title="Estadísticas"
+            >
+              <BarChart2 className="w-5 h-5" />
             </Link>
           </div>
         </div>
